@@ -1,0 +1,12 @@
+Package: Database
+Type: Package
+Title: Provides objects for popular databases
+Version: 0.1.0
+Author: Matt Campbell
+Maintainer: Who to complain to <mjcampbell74@gmail.com>
+Description: SQLite, SQL Server and Redshift database objects that include
+    connection code. These objects include operations that pass SQL queries and
+    return data frames.
+License: None
+LazyData: TRUE
+RoxygenNote: 5.0.1
