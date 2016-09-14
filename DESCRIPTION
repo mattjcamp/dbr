@@ -1,7 +1,7 @@
 Package: Database
 Type: Package
 Title: Provides objects for popular databases
-Version: 0.2.2
+Version: 0.2.3
 Author: Matt Campbell
 Maintainer: Who to complain to <mjcampbell74@gmail.com>
 Description: SQLite, SQL Server and Redshift database objects that include
