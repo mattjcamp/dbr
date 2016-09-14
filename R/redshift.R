@@ -65,15 +65,15 @@ redshift <- function(factory,
 
     if (matching != "") {
       matching <- sprintf("%s%s%s", "%", matching, "%")
-      filter_matching = sprintf("table_name LIKE '%s'", database)
+      filter_matching = sprintf("table_schema LIKE '%s'", matching)
     } else {
       filter_matching = NULL
     }
 
     sql <- code_sql_query(table.name = "information_schema.tables",
-                          select.cols = "table_name as table",
+                          select.cols = "table_schema as database",
                           filters = c(filter_matching),
-                          order.by.cols = c(filter_database, filter_matching))
+                          order.by.cols = c("table_schema"))
 
     me$query(sql)
 
@@ -98,7 +98,7 @@ redshift <- function(factory,
     sql <- code_sql_query(table.name = "information_schema.tables",
                           select.cols = "table_name as table",
                           filters = c(filter_database, filter_matching),
-                          order.by.cols = c(filter_database, filter_matching))
+                          order.by.cols = "table_name")
 
     me$query(sql)
 
