@@ -71,7 +71,7 @@ redshift <- function(factory,
     }
 
     sql <- code_sql_query(table.name = "information_schema.tables",
-                          select.cols = "table_schema as database",
+                          select.cols = "DISTINCT table_schema as database",
                           filters = c(filter_matching),
                           order.by.cols = c("table_schema"))
 
