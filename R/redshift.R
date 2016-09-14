@@ -54,10 +54,16 @@ redshift <- function(factory,
   }
 
   me$save <- function(df, tablename, append = FALSE){
-    stop("STILL NEED TO IMPLEMENT REDSHIFT save FUNCTION")
+    stop("reshift save function is not working yet")
+    # dbWriteTable(connection, name = tablename, value = df, append = append)
   }
   me$drop <- function(tablename){
-    stop("STILL NEED TO IMPLEMENT REDSHIFT drop FUNCTION")
+
+    # MUST INCLUDE DATABASE AND TABLENAME FOR RESHIFT
+
+    if (dbExistsTable(connection, name = tablename))
+      me$send.update(sprintf("DROP TABLE %s", tablename))
+
   }
   me$databases <- function(matching = ""){
 
