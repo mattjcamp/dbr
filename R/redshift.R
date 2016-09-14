@@ -90,7 +90,7 @@ redshift <- function(factory,
 
     if (matching != "") {
       matching <- sprintf("%s%s%s", "%", matching, "%")
-      filter_matching = sprintf("table_name LIKE '%s'", database)
+      filter_matching = sprintf("table_name LIKE '%s'", matching)
     } else {
       filter_matching = NULL
     }
