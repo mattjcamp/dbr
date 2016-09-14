@@ -46,9 +46,9 @@ redshift <- function(factory,
     return(r)
   }
 
-  me$send.update <- function(sqlCode){
+  me$send.update <- function(sql){
 
-    r <- dbSendUpdate(connection, sqlCode)
+    r <- dbSendUpdate(connection, sql)
 
     return(r)
   }
@@ -59,10 +59,50 @@ redshift <- function(factory,
   me$drop <- function(tablename){
     stop("STILL NEED TO IMPLEMENT REDSHIFT drop FUNCTION")
   }
-  me$tables <- function(matching){
-    stop("STILL NEED TO IMPLEMENT REDSHIFT tables FUNCTION")
-  }
+  me$databases <- function(matching = ""){
 
+    library(Coder)
+
+    if (matching != "") {
+      matching <- sprintf("%s%s%s", "%", matching, "%")
+      filter_matching = sprintf("table_name LIKE '%s'", database)
+    } else {
+      filter_matching = NULL
+    }
+
+    sql <- code_sql_query(table.name = "information_schema.tables",
+                          select.cols = "table_name as table",
+                          filters = c(filter_matching),
+                          order.by.cols = c(filter_database, filter_matching))
+
+    me$query(sql)
+
+  }
+  me$tables <- function(database = "", matching = ""){
+
+    library(Coder)
+
+    if (database != "") {
+      filter_database = sprintf("table_schema = '%s'", database)
+    } else {
+      filter_database = NULL
+    }
+
+    if (matching != "") {
+      matching <- sprintf("%s%s%s", "%", matching, "%")
+      filter_matching = sprintf("table_name LIKE '%s'", database)
+    } else {
+      filter_matching = NULL
+    }
+
+    sql <- code_sql_query(table.name = "information_schema.tables",
+                          select.cols = "table_name as table",
+                          filters = c(filter_database, filter_matching),
+                          order.by.cols = c(filter_database, filter_matching))
+
+    me$query(sql)
+
+  }
   me$close <- function(){
     dbDisconnect(connection)
   }
