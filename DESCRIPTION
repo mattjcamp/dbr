@@ -1,7 +1,7 @@
 Package: dbr
 Type: Package
 Title: Provides objects for popular databases
-Version: 0.2.7
+Version: 0.3.1
 Author: Matt Campbell
 Maintainer: Who to complain to <mjcampbell74@gmail.com>
 Description: SQLite, SQL Server and Redshift database objects that include
@@ -10,3 +10,9 @@ Description: SQLite, SQL Server and Redshift database objects that include
 License: None
 LazyData: TRUE
 RoxygenNote: 5.0.1
+Imports:
+  coderr,
+  RJDBC,
+  RODBC,
+  DBI,
+  RSQLite

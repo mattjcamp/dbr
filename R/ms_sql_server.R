@@ -1,7 +1,7 @@
 
 #' SQL Server Database Connection
 #'
-#' Maintains a connection to a SQLite database that you can query
+#' Maintains a connection to a SQL Server database that you can query
 #' @param server the server that hosts the database
 #' @param database the name of the database
 #' @param username your username, if you do not include this R will prompt you when the object is created
@@ -12,7 +12,7 @@
 #' @examples
 #'
 
-ms.sql.server <- function(server,
+ms_sql_server <- function(server,
                           database,
                           username = "",
                           password = ""){
@@ -30,35 +30,35 @@ ms.sql.server <- function(server,
   if (password == "")
     password <- readline(prompt = "Enter SQL Password: ")
 
-  connection <- odbcDriverConnect(sprintf("driver=SQL Server;server=%s;database=%s;Uid=%s;Pwd=%s;",
-                                  server, database, username, password))
+  connection <- RODBC::odbcDriverConnect(sprintf("driver=SQL Server;server=%s;database=%s;Uid=%s;Pwd=%s;",
+                                                 server, database, username, password))
 
   me$query <- function(sql, forceCharacters = FALSE){
 
     if (forceCharacters)
-      r <- sqlQuery(connection, sql, as.is = TRUE)
+      r <- RODBC::sqlQuery(connection, sql, as.is = TRUE)
     else
-      r <- sqlQuery(connection, sql)
+      r <- RODBC::sqlQuery(connection, sql)
 
     r
 
   }
-  me$save <- function(df, tablename, append = FALSE){
+  me$save <- function(df, table_name, append = FALSE){
 
     # NOTE don't use fully qualified name when saving
     # You can only have tables to the database you
     # have in the connection string
 
-    sqlSave(connection, dat = df, tablename = tablename,
-            rownames = FALSE, fast = TRUE, append = append)
+    RODBC::sqlSave(connection, dat = df, tablename = table_name,
+                   rownames = FALSE, fast = TRUE, append = append)
   }
-  me$drop <- function(tablename){
+  me$drop <- function(table_name){
 
     # NOTE  don't use the fully qualified name here. You can
     #       only delete from the database you signed on to
 
     me$query(sprintf("IF object_id(N'%s', N'U') IS NOT NULL DROP TABLE %s;",
-                    tablename, tablename))
+                    table_name, table_name))
   }
   me$tables <- function(matching, database){
 
@@ -77,11 +77,11 @@ ms.sql.server <- function(server,
 
   }
   me$close <- function(){
-    close(connection)
+    RODBC::close(connection)
   }
 
-  class(me) <- append(class(me),"Database")
-  class(me) <- append(class(me),"ms.sql.server")
+  class(me) <- append(class(me),"sql_database")
+  class(me) <- append(class(me),"ms_sql_server")
 
   return(me)
 

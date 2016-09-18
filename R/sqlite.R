@@ -2,35 +2,34 @@
 #' SQLite Database Connection
 #'
 #' Maintains a connection to a SQLite database that you can query
-#' @param database.file the full folder name of the SQLite database file
+#' @param database_file the full folder name of the SQLite database file
 #' @return an object that maintains a connection to the database that you can query with SQL
 #' @keywords SQLite, database, SQL
 #' @export
 #' @examples
 
-sqlite <- function(database.file = ""){
+sqlite <- function(database_file = ""){
 
-  library(DBI)
   me <- list()
 
-  if (database.file == "")
-    database.file <- file.choose()
+  if (database_file == "")
+    database_file <- file.choose()
 
   connection <- dbConnect(RSQLite::SQLite(),
-                                  dbname = database.file)
+                                  dbname = database_file)
 
   me$query <- function(sql,
                        forceCharacters = FALSE){
 
     if (forceCharacters)
-      r <- dbGetQuery(connection, sql, as.is = TRUE)
+      r <- DBI::dbGetQuery(connection, sql, as.is = TRUE)
     else
-      r <- dbGetQuery(connection, sql)
+      r <- DBI::dbGetQuery(connection, sql)
 
     return(r)
   }
   me$save <- function(df, tablename, append = FALSE){
-      dbWriteTable(connection, name = tablename, value = df, append = append)
+      DBI::dbWriteTable(connection, name = tablename, value = df, append = append)
   }
   me$drop <- function(tablename){
 
@@ -58,10 +57,10 @@ sqlite <- function(database.file = ""){
 
   }
   me$close <- function(){
-    dbDisconnect(connection)
+    DBI::dbDisconnect(connection)
   }
 
-  class(me) <- append(class(me),"Database")
+  class(me) <- append(class(me),"sql_database")
   class(me) <- append(class(me),"sqlite")
 
   me
