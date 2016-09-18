@@ -28,7 +28,7 @@ redshift <- function(factory,
   if (password == "")
     password <- readline(prompt = "Enter Redshift Password: ")
 
-  jdbc_jar_loc <- system.file("Database_resources",
+  jdbc_jar_loc <- system.file("dbr_resources",
                               "RedshiftJDBC41-1.1.10.1010.jar",
                               package = "dbr")
 
