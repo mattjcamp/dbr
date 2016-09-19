@@ -4,10 +4,10 @@
 \alias{sqlite}
 \title{SQLite Database Connection}
 \usage{
-sqlite(database.file = "")
+sqlite(database_file = "")
 }
 \arguments{
-\item{database.file}{the full folder name of the SQLite database file}
+\item{database_file}{the full folder name of the SQLite database file}
 }
 \value{
 an object that maintains a connection to the database that you can query with SQL
