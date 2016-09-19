@@ -17,6 +17,8 @@ redshift <- function(factory,
                      username = "",
                      password = ""){
 
+  library(RJDBC)
+
   me <- list()
 
   # PROMPT FOR CREDIENTIALS IF USER DID NOT INCLUDE
