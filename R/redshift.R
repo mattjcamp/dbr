@@ -57,11 +57,13 @@ redshift <- function(factory,
     stop("reshift save function is not working yet")
     # RJDBC::dbWriteTable(connection, name = tablename, value = df, append = append)
   }
-  me$drop <- function(table_name){
+  me$drop <- function(database, table_name){
 
     # MUST INCLUDE DATABASE AND TABLENAME FOR RESHIFT
 
-    if (RJDBC::dbExistsTable(connection, name = table_name))
+    print(RJDBC::dbExistsTable(connection, name = sprintf("%s.%s", database, table_name)))
+
+    if (RJDBC::dbExistsTable(connection, name = sprintf("%s.%s", database, table_name)))
       me$send.update(sprintf("DROP TABLE %s", table_name))
 
   }
