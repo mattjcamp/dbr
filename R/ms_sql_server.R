@@ -77,7 +77,7 @@ ms_sql_server <- function(server,
 
   }
   me$close <- function(){
-    RODBC::close(connection)
+    close(connection)
   }
 
   class(me) <- append(class(me),"sql_database")
