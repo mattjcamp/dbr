@@ -59,12 +59,9 @@ redshift <- function(factory,
   }
   me$drop <- function(database, table_name){
 
-    # MUST INCLUDE DATABASE AND TABLENAME FOR RESHIFT
-
-    print(RJDBC::dbExistsTable(connection, name = sprintf("%s.%s", database, table_name)))
-
-    if (RJDBC::dbExistsTable(connection, name = sprintf("%s.%s", database, table_name)))
-      me$send.update(sprintf("DROP TABLE %s", table_name))
+    tryCatch({me$send.update(sprintf("DROP TABLE %s.%s", database, table_name))},
+             error = function(err) {},
+             finally = {})
 
   }
   me$databases <- function(matching = ""){
