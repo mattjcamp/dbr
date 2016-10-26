@@ -16,7 +16,7 @@ sqlite <- function(database_file = ""){
     database_file <- file.choose()
 
   connection <- dbConnect(RSQLite::SQLite(),
-                                  dbname = database_file)
+                          dbname = database_file)
 
   me$query <- function(sql,
                        forceCharacters = FALSE){
