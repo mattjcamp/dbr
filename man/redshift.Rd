@@ -21,9 +21,6 @@ an object that maintains a connection to the server that you can query with SQL
 \description{
 Maintains a connection to an Amazon Redshift database that you can query
 }
-\examples{
-
-}
 \keyword{SQL}
 \keyword{Server,}
 \keyword{database,}

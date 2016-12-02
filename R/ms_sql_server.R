@@ -33,9 +33,9 @@ ms_sql_server <- function(server,
   connection <- RODBC::odbcDriverConnect(sprintf("driver=SQL Server;server=%s;database=%s;Uid=%s;Pwd=%s;",
                                                  server, database, username, password))
 
-  me$query <- function(sql, forceCharacters = FALSE){
+  me$query <- function(sql, return_as_text = FALSE){
 
-    if (forceCharacters)
+    if (return_as_text)
       r <- RODBC::sqlQuery(connection, sql, as.is = TRUE)
     else
       r <- RODBC::sqlQuery(connection, sql)
@@ -43,6 +43,7 @@ ms_sql_server <- function(server,
     r
 
   }
+
   me$save <- function(df, table_name, append = FALSE){
 
     # NOTE don't use fully qualified name when saving
@@ -52,6 +53,7 @@ ms_sql_server <- function(server,
     RODBC::sqlSave(connection, dat = df, tablename = table_name,
                    rownames = FALSE, fast = TRUE, append = append)
   }
+
   me$drop <- function(table_name){
 
     # NOTE  don't use the fully qualified name here. You can
@@ -60,6 +62,7 @@ ms_sql_server <- function(server,
     me$query(sprintf("IF object_id(N'%s', N'U') IS NOT NULL DROP TABLE %s;",
                     table_name, table_name))
   }
+
   me$tables <- function(matching, database){
 
     matching <- sprintf("%s%s%s", "%", matching, "%")
@@ -76,6 +79,7 @@ ms_sql_server <- function(server,
     me$query(sql)
 
   }
+
   me$close <- function(){
     close(connection)
   }

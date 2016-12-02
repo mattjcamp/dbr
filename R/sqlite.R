@@ -19,24 +19,29 @@ sqlite <- function(database_file = ""){
                                dbname = database_file)
 
   me$query <- function(sql,
-                       forceCharacters = FALSE){
+                       return_as_text = FALSE){
 
-    if (forceCharacters)
+    if (return_as_text)
       r <- DBI::dbGetQuery(connection, sql, as.is = TRUE)
     else
       r <- DBI::dbGetQuery(connection, sql)
 
     return(r)
   }
-  me$save <- function(df, tablename, append = FALSE){
-      DBI::dbWriteTable(connection, name = tablename, value = df, append = append)
+
+  me$send_update <- function(sql){me$query(sql)}
+
+  me$save <- function(df, table_name, append = FALSE){
+      DBI::dbWriteTable(connection, name = table_name, value = df, append = append)
   }
-  me$drop <- function(tablename){
+
+  me$drop <- function(table_name){
 
     me$query(sprintf("DROP TABLE IF EXISTS %s;",
-                     tablename))
+                     table_name))
 
   }
+
   me$tables <- function(matching = NULL){
 
     if (!is.null(matching))
@@ -56,6 +61,7 @@ sqlite <- function(database_file = ""){
     me$query(sql)
 
   }
+
   me$close <- function(){
     DBI::dbDisconnect(connection)
   }
@@ -66,5 +72,3 @@ sqlite <- function(database_file = ""){
   me
 
 }
-
-

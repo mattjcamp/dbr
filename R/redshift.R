@@ -10,7 +10,6 @@
 #' @keywords SQL Server, database, SQL
 #' @export
 #' @examples
-#'
 
 redshift <- function(factory,
                      redshift_url,
@@ -39,31 +38,12 @@ redshift <- function(factory,
   redshift_drv <- RJDBC::JDBC(redshift_drv_name, jdbc_jar_loc, identifier.quote = "\"")
   connection <- RJDBC::dbConnect(redshift_drv, redshift_url, user = username, password = password)
 
-  me$query <- function(sql){
+  me$query <- function(sql){RJDBC::dbGetQuery(connection, sql)}
 
-    r <- RJDBC::dbGetQuery(connection, sql)
+  me$send_update <- function(sql){RJDBC::dbSendUpdate(connection, sql)}
 
-    return(r)
-  }
+  me$drop <- function(database, table_name){me$send_update(sprintf("drop table if exists %s.%s", database, table_name))}
 
-  me$send.update <- function(sql){
-
-    r <- RJDBC::dbSendUpdate(connection, sql)
-
-    return(r)
-  }
-
-  me$save <- function(df, table_name, append = FALSE){
-    stop("reshift save function is not working yet")
-    # RJDBC::dbWriteTable(connection, name = tablename, value = df, append = append)
-  }
-  me$drop <- function(database, table_name){
-
-    tryCatch({me$send.update(sprintf("DROP TABLE %s.%s", database, table_name))},
-             error = function(err) {},
-             finally = {})
-
-  }
   me$databases <- function(matching = ""){
 
     if (matching != "") {
@@ -81,6 +61,7 @@ redshift <- function(factory,
     me$query(sql)
 
   }
+
   me$tables <- function(database = "", matching = ""){
 
     if (database != "") {
@@ -104,13 +85,12 @@ redshift <- function(factory,
     me$query(sql)
 
   }
-  me$close <- function(){
-    RJDBC::dbDisconnect(connection)
-  }
+
+  me$close <- function(){RJDBC::dbDisconnect(connection)}
 
   class(me) <- append(class(me),"sql_database")
   class(me) <- append(class(me),"redshift")
 
-  return(me)
+  me
 
 }
