@@ -1,7 +1,7 @@
 Package: dbr
 Type: Package
 Title: Provides objects for popular databases
-Version: 1.0.0
+Version: 2.0.0
 Author: Matt Campbell
 Maintainer: Who to complain to <mjcampbell74@gmail.com>
 Description: SQLite, MS SQL Server and Redshift database functions that provide a single interface to connect to databases, execute queries and send updates.
@@ -9,7 +9,6 @@ License: None
 LazyData: TRUE
 RoxygenNote: 5.0.1
 Imports:
-  coderr,
   RJDBC,
   RODBC,
   DBI,

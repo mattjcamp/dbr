@@ -53,10 +53,10 @@ redshift <- function(factory,
       filter_matching = NULL
     }
 
-    sql <- coderr::code_sql_select(table_or_sql = "information_schema.tables",
-                                   select.cols = "DISTINCT table_schema as database",
-                                   filters = c(filter_matching),
-                                   order.by.cols = c("table_schema"))
+    # sql <- coderr::code_sql_select(table_or_sql = "information_schema.tables",
+    #                                select.cols = "DISTINCT table_schema as database",
+    #                                filters = c(filter_matching),
+    #                                order.by.cols = c("table_schema"))
 
     me$query(sql)
 
@@ -77,10 +77,10 @@ redshift <- function(factory,
       filter_matching = NULL
     }
 
-    sql <- coderr::code_sql_select(table_or_sql = "information_schema.tables",
-                                   select.cols = "DISTINCT table_name as table",
-                                   filters = c(filter_database, filter_matching),
-                                   order.by.cols = "table_name")
+    # sql <- coderr::code_sql_select(table_or_sql = "information_schema.tables",
+    #                                select.cols = "DISTINCT table_name as table",
+    #                                filters = c(filter_database, filter_matching),
+    #                                order.by.cols = "table_name")
 
     me$query(sql)
 
