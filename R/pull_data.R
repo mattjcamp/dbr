@@ -11,7 +11,7 @@
 
 pull_data <- function(sql_code, conn){
 
-  stopifnot(class(conn) %in% c("RODBC", "JDBCConnection"))
+  stopifnot(class(conn) %in% c("RODBC", "JDBCConnection", "SQLiteConnection"))
 
   d <- NULL
 
@@ -19,6 +19,8 @@ pull_data <- function(sql_code, conn){
     d <- tibble::as_tibble(RODBC::sqlQuery(conn, sql_code, as.is = TRUE))
   if (class(conn) %in% "JDBCConnection")
     d <- tibble::as_tibble(RJDBC::dbGetQuery(conn, sql_code))
+  if (class(conn) %in% "SQLiteConnection")
+    d <- tibble::as_tibble(DBI::dbGetQuery(conn, sql_code, as.is = TRUE))
 
   d
 

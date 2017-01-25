@@ -9,10 +9,10 @@ send_update(sql_code, conn)
 \arguments{
 \item{sql_code}{SQL code that updates the data source}
 
-\item{conn}{RODBC (Research Database) or RJDBC (Cornerstone) data connection}
+\item{conn}{RODBC, RJDBC or other supported data connection}
 }
 \description{
-Updates the databsource. Provides a common interface. Used when no data table result is expected.
+Updates the data source. Provides a common interface. Used when no data table result is expected.
 }
 \details{
 Updates the data connection.

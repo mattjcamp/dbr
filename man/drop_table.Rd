@@ -11,7 +11,7 @@ drop_table(table_to_delete, conn)
 tables associated with the schema you used to create conn (probably the services database, would have been in .renviron). NOTE
 for Cornerstone you must specify the entire schema + table (sndbx__research.mc_temp) while for Research you only specify the table (mc_temp).}
 
-\item{conn}{RODBC (Research Database) or RJDBC (Cornerstone) data connection}
+\item{conn}{RODBC, RJDBC or other supported data connection}
 }
 \description{
 If the specified tables exists, it will be deleted.

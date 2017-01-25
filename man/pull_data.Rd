@@ -9,7 +9,7 @@ pull_data(sql_code, conn)
 \arguments{
 \item{sql_code}{SQL query that returns one data table}
 
-\item{conn}{RODBC (Research Database) or RJDBC (Cornerstone) data connection}
+\item{conn}{RODBC, RJDBC or other supported data connection}
 }
 \description{
 Gets data from a database connection and returns the result as a tibble. Provides a common interface.

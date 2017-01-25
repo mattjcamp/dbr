@@ -14,8 +14,10 @@ send_update <- function(sql_code, conn){
   stopifnot(class(conn) %in% c("RODBC", "JDBCConnection"))
 
   if (class(conn) %in% "RODBC")
-    d <- RODBC::sqlQuery(conn, sql_code, as.is = TRUE)
+    RODBC::sqlQuery(conn, sql_code, as.is = TRUE)
   if (class(conn) %in% "JDBCConnection")
-    d <- RJDBC::dbSendUpdate(conn, sql_code)
+    RJDBC::dbSendUpdate(conn, sql_code)
+  if (class(conn) %in% "SQLiteConnection")
+    DBI::dbGetQuery(conn, sql_code, as.is = TRUE)
 
 }
