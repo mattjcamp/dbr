@@ -4,16 +4,16 @@
 \alias{init_redshift}
 \title{Amazon Redshift Database Connection}
 \usage{
-init_redshift(factory, redshift_url, username = NULL, password = NULL)
+init_redshift(redshift_url, username = NULL, password = NULL)
 }
 \arguments{
-\item{factory}{the redshift factory name}
-
 \item{redshift_url}{the Amazon S3 URL where the Redshift instance is hosted}
 
 \item{username}{your username, if you do not include this R will prompt you when the object is created}
 
 \item{password}{your password, if you do not include this R will prompt you when the object is created}
+
+\item{factory}{the redshift factory name}
 }
 \value{
 an object that maintains a connection to the server that you can query with SQL

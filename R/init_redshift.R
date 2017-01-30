@@ -11,8 +11,7 @@
 #' @export
 #' @examples
 
-init_redshift <- function(factory,
-                          redshift_url,
+init_redshift <- function(redshift_url,
                           username = NULL,
                           password = NULL){
 
@@ -28,7 +27,11 @@ init_redshift <- function(factory,
                               "RedshiftJDBC41-1.1.10.1010.jar",
                               package = "dbr")
 
-  .jinit(classpath = jdbc_jar_loc, parameters = c("-Xms4g", "-Xmx4g", "-d64", "-server"), force.init = TRUE)
+  library(RJDBC)
+
+  .jinit(classpath = jdbc_jar_loc,
+         parameters = c("-Xms4g", "-Xmx4g", "-d64", "-server"),
+         force.init = TRUE)
   redshift_drv_name <- "com.amazon.redshift.jdbc41.Driver"
   redshift_drv <- RJDBC::JDBC(redshift_drv_name, jdbc_jar_loc, identifier.quote = "\"")
   conn <- RJDBC::dbConnect(redshift_drv, redshift_url, user = username, password = password)
