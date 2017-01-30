@@ -11,7 +11,7 @@
 
 pull_data <- function(sql_code, conn){
 
-  stopifnot(class(conn) %in% c("RODBC", "JDBCConnection", "SQLiteConnection"))
+  stopifnot(class(conn) %in% c("RODBC", "JDBCConnection", "SQLiteConnection", "RSQLite"))
 
   d <- NULL
 
