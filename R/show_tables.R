@@ -48,7 +48,7 @@ show_tables <- function(conn, show_tables_matching = "", database = ""){
 
     if (!(length(filters) == 0)) {
       if (!filters[1] == "") {
-        filters.logical <- sprintf(" %s ", filters.logical)
+        filters.logical <- sprintf(" %s ", " AND ")
         filters <- paste(filters, collapse = filters.logical)
         filters <- sprintf("WHERE %s", filters)
       }else
@@ -62,11 +62,6 @@ show_tables <- function(conn, show_tables_matching = "", database = ""){
       %s
       order by table_name
       ", filters)
-
-    # sql <- coderr::code_sql_select(table_or_sql = "information_schema.tables",
-    #                                select.cols = "DISTINCT table_name as table",
-    #                                filters = c(filter_database, filter_matching),
-    #                                order.by.cols = "table_name")
 
   }
 
