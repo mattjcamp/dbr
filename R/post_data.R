@@ -19,7 +19,9 @@ post_data <- function(df, table_name, conn, append = FALSE){
     RODBC::sqlSave(conn, dat = df, tablename = table_name,
                    rownames = FALSE, fast = TRUE, append = append)
   if (class(conn) %in% "SQLiteConnection")
-    DBI::dbWriteTable(conn, name = table_name, value = df, append = append)
+    DBI::dbWriteTable(conn, name = table_name,
+                      value = as.data.frame(df),
+                      append = append)
 
 }
 

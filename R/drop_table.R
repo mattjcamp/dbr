@@ -13,7 +13,7 @@
 
 drop_table <- function(table_to_delete, conn){
 
-  stopifnot(class(conn) %in% c("RODBC", "JDBCConnection"))
+  stopifnot(class(conn) %in% c("RODBC", "JDBCConnection", "SQLiteConnection"))
 
   if (class(conn) %in% "RODBC")
     send_update(sprintf("IF object_id(N'%s', N'U') IS NOT NULL DROP TABLE %s;",
