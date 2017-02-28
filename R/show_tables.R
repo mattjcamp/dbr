@@ -6,9 +6,7 @@
 #' @param show_tables_matching
 #' @param database
 #' @param conn RODBC, RJDBC or other supported data connection
-#' @keywords database
 #' @export
-#' @examples
 
 show_tables <- function(conn, show_tables_matching = "", database = ""){
 

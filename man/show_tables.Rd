@@ -15,5 +15,4 @@ Shows the tables in your data connection
 \details{
 Quick way to see what tables you have available to you
 }
-\keyword{database}
 
