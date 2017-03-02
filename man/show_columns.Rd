@@ -4,12 +4,14 @@
 \alias{show_columns}
 \title{Show Columns}
 \usage{
-show_columns(conn, table)
+show_columns(conn, schema, tables)
 }
 \arguments{
 \item{conn}{RODBC, RJDBC or other supported data connection}
 
-\item{table}{the table that you want to inspect}
+\item{schema}{the schema or database that the tables are located in}
+
+\item{tables}{the table that you want to inspect}
 }
 \description{
 Shows the columns in the table you specify
