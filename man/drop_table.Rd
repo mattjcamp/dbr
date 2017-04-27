@@ -20,4 +20,3 @@ If the specified tables exists, it will be deleted.
 Removes a table from a database.
 }
 \keyword{database}
-

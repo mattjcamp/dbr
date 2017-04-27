@@ -18,4 +18,3 @@ Gets data from a database connection and returns the result as a tibble. Provide
 Gets data from a database connection and returns the result as a tibble
 }
 \keyword{database}
-

@@ -16,4 +16,3 @@ Disconnects from a database
 closes a connection
 }
 \keyword{database}
-

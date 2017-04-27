@@ -19,4 +19,3 @@ Shows the columns in the table you specify
 \details{
 Quick way to see what columns are in a table
 }
-

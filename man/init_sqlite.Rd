@@ -18,4 +18,3 @@ Maintains a connection to a local SQLite database
 \keyword{SQL}
 \keyword{SQLite,}
 \keyword{database,}
-

@@ -24,4 +24,3 @@ Maintains a connection to a SQL Server database that you can query
 \keyword{SQL}
 \keyword{Server,}
 \keyword{database,}
-

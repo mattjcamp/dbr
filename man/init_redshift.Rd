@@ -24,4 +24,3 @@ Maintains a connection to an Amazon Redshift database that you can query
 \keyword{SQL}
 \keyword{Server,}
 \keyword{database,}
-

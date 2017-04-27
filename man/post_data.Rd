@@ -22,4 +22,3 @@ Posts data to your connection. NOTE For RODBC data connections don't use the ful
 Creates a database table from a dataframe
 }
 \keyword{database}
-

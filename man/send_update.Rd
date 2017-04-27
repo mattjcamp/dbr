@@ -18,4 +18,3 @@ Updates the data source. Provides a common interface. Used when no data table re
 Updates the data connection.
 }
 \keyword{database}
-
