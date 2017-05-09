@@ -40,7 +40,7 @@ order by table_schema, table_name, ordinal_position"
   mutate(table_name = str_to_lower(table_name),
          column_name = str_to_lower(column_name),
          col_length = as.numeric(col_length)) %>%
-  mutate(data_type = ifelse(data_type %in% c("character varying"),
+  mutate(data_type = ifelse(data_type %in% c("character varying","char"),
                             "varchar", data_type),
          data_type = ifelse(data_type %in% c("int", "tinyint", "smallint"),
                             "numeric", data_type),
