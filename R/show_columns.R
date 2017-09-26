@@ -42,7 +42,7 @@ order by table_schema, table_name, ordinal_position"
          col_length = as.numeric(col_length)) %>%
   mutate(data_type = ifelse(data_type %in% c("character varying","char"),
                             "varchar", data_type),
-         data_type = ifelse(data_type %in% c("int", "tinyint", "smallint"),
+         data_type = ifelse(data_type %in% c("int", "tinyint", "smallint", "integer"),
                             "numeric", data_type),
          data_type = ifelse(data_type %in% c("datetime2", "datetime", "timestamp without time zone"),
                             "date", data_type))
