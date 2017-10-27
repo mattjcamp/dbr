@@ -24,14 +24,11 @@ init_redshift <- function(redshift_url,
     password <- readline(prompt = "Enter Amazon Redshift password: ")
 
   jdbc_jar_loc <- system.file("dbr_resources",
-                              "RedshiftJDBC42-1.2.10.1009.jar",
+                              "RedshiftJDBC41-1.2.10.1009.jar",
                               package = "dbr")
 
   library(RJDBC)
 
-  .jinit(classpath = jdbc_jar_loc,
-         parameters = c("-Xms4g", "-Xmx4g", "-d64", "-server"),
-         force.init = TRUE)
   redshift_drv_name <- "com.amazon.redshift.jdbc.Driver"
   redshift_drv <- RJDBC::JDBC(redshift_drv_name, jdbc_jar_loc, identifier.quote = "\"")
   conn <- RJDBC::dbConnect(redshift_drv, redshift_url, user = username, password = password)
