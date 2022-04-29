@@ -11,7 +11,7 @@
 #'
 show_columns <- function(conn, schema, tables) {
 
-    if (class(conn) %in% "JDBCConnection")
+    if (class(conn) %in% c("JDBCConnection","Microsoft SQL Server"))
       sql <- "
 
 select  table_name, table_schema, column_name, data_type,
