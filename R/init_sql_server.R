@@ -31,7 +31,7 @@ init_sql_server <- function(server,
 
   conn <- DBI::dbConnect(odbc::odbc(),
                         .connection_string=
-                          sprintf("Driver={ODBC Driver 18 for SQL Server};Server=%s;Database=%s;UID=%s;PWD=%s;TrustServerCertificate=yes;",
+                          sprintf("Driver={ODBC Driver 17 for SQL Server};Server=%s;Database=%s;UID=%s;PWD=%s;TrustServerCertificate=yes;",
                                   server, database, username, password),
                         timeout = 10)
   conn

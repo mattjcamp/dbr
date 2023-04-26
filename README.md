@@ -91,3 +91,8 @@ well to R. This version is based on the idea of splitting up functions into simp
 the "tidyverse" family of packages and it is also the approached that I used with
 **cohortr** and **datapointsr**. This seems to be the best way to approach code
 reuse with R and so now **dbr** will work well with the other packages I've been using.
+
+## Troubleshooting
+
+See the document install-mac-drivers.md for notes on how to install the drivers
+on Mac.
