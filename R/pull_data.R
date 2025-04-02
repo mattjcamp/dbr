@@ -11,13 +11,13 @@
 
 pull_data <- function(sql_code, conn){
 
-  stopifnot(class(conn) %in% c("RODBC", "JDBCConnection", "SQLiteConnection", "RSQLite","Microsoft SQL Server"))
+  stopifnot(class(conn) %in% c("PqConnection", "RPostgres", "RODBC", "JDBCConnection", "SQLiteConnection", "RSQLite","Microsoft SQL Server"))
 
   d <- NULL
 
   if (class(conn) %in% "RODBC")
     d <- tibble::as_tibble(RODBC::sqlQuery(conn, sql_code, as.is = TRUE))
-  if (class(conn) %in% c("JDBCConnection","Microsoft SQL Server"))
+  if (class(conn) %in% c("PqConnection", "RPostgres", "JDBCConnection","Microsoft SQL Server"))
     d <- tibble::as_tibble(RJDBC::dbGetQuery(conn, sql_code))
   if (class(conn) %in% "SQLiteConnection")
     d <- tibble::as_tibble(DBI::dbGetQuery(conn, sql_code, as.is = TRUE))

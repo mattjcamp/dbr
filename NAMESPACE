@@ -2,6 +2,7 @@
 
 export(close_connection)
 export(drop_table)
+export(init_postgresql)
 export(init_redshift)
 export(init_sql_server)
 export(init_sqlite)

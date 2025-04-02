@@ -10,13 +10,12 @@
 
 close_connection <- function(conn){
 
-  stopifnot(class(conn) %in% c("RODBC", "JDBCConnection", "SQLiteConnection","Microsoft SQL Server"))
+  stopifnot(class(conn) %in% c("PqConnection", "RPostgres", "RODBC", "JDBCConnection", "SQLiteConnection","Microsoft SQL Server"))
 
   if (class(conn) %in% "RODBC")
     close(conn)
-  if (class(conn) %in% c("JDBCConnection","Microsoft SQL Server"))
+  if (class(conn) %in% c("PqConnection", "RPostgres", "JDBCConnection","Microsoft SQL Server"))
     DBI::dbDisconnect(conn)
-    # RJDBC::dbDisconnect(conn)
   if (class(conn) %in% "SQLiteConnection")
     DBI::dbDisconnect(conn)
 

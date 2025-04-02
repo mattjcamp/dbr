@@ -7,7 +7,7 @@ Maintainer: Who to complain to <mjcampbell74@gmail.com>
 Description: SQLite, MS SQL Server and Redshift database functions that provide a single interface to connect to databases, execute queries and send updates.
 License: None
 LazyData: TRUE
-RoxygenNote: 6.0.1
+RoxygenNote: 7.2.3
 Imports:
   RJDBC,
   DBI,

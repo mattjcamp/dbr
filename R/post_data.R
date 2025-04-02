@@ -13,12 +13,12 @@
 
 post_data <- function(df, table_name, conn, append = FALSE){
 
-  stopifnot(class(conn) %in% c("RODBC", "SQLiteConnection","Microsoft SQL Server"))
+  stopifnot(class(conn) %in% c("PqConnection", "RPostgres", "RODBC", "SQLiteConnection","Microsoft SQL Server"))
 
   if (class(conn) %in% "RODBC")
     RODBC::sqlSave(conn, dat = df, tablename = table_name,
                    rownames = FALSE, fast = TRUE, append = append)
-  if (class(conn) %in% c("SQLiteConnection","Microsoft SQL Server"))
+  if (class(conn) %in% c("PqConnection", "RPostgres", "SQLiteConnection","Microsoft SQL Server"))
     DBI::dbWriteTable(conn, name = table_name,
                       value = as.data.frame(df),
                       append = append)

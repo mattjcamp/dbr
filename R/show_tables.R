@@ -10,7 +10,15 @@
 
 show_tables <- function(conn, show_tables_matching = "", database = ""){
 
-  stopifnot(class(conn) %in% c("RODBC", "JDBCConnection", "SQLiteConnection"))
+  stopifnot(class(conn) %in% c("PqConnection", "RPostgres", "RODBC", "JDBCConnection", "SQLiteConnection"))
+
+  if (class(conn) %in% c("PqConnection", "RPostgres")) {
+
+    sql <- "SELECT table_name
+    FROM information_schema.tables
+    WHERE table_schema = 'public';"
+
+  }
 
   if (class(conn) %in% "RODBC") {
 
