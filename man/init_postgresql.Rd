@@ -4,7 +4,7 @@
 \alias{init_postgresql}
 \title{PostgreSQL Database Connection}
 \usage{
-init_postgresql(user, password)
+init_postgresql(user, password, database)
 }
 \arguments{
 \item{user}{the password}

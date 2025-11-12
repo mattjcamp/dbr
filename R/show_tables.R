@@ -14,9 +14,12 @@ show_tables <- function(conn, show_tables_matching = "", database = ""){
 
   if (class(conn) %in% c("PqConnection", "RPostgres")) {
 
-    sql <- "SELECT table_name
+    sql <- "SELECT table_schema, table_name
     FROM information_schema.tables
-    WHERE table_schema = 'public';"
+    WHERE table_schema NOT IN (
+      'table_schema'
+      , 'information_schema'
+      , 'pg_catalog');"
 
   }
 
