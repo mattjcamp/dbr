@@ -20,6 +20,6 @@ send_update <- function(sql_code, conn){
   if (class(conn) %in% c("PqConnection", "RPostgres", "Microsoft SQL Server"))
     DBI::dbSendStatement(conn, sql_code)
   if (class(conn) %in% "SQLiteConnection")
-    DBI::dbGetQuery(conn, sql_code, as.is = TRUE)
+    DBI::dbExecute(conn, sql_code, as.is = TRUE)
 
 }
