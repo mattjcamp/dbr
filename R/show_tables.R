@@ -10,7 +10,15 @@
 
 show_tables <- function(conn, show_tables_matching = "", database = ""){
 
-  stopifnot(class(conn) %in% c("PqConnection", "RPostgres", "RODBC", "JDBCConnection", "SQLiteConnection"))
+  stopifnot(class(conn) %in% c(
+      "PqConnection"
+      , "RPostgres"
+      , "RODBC"
+      , "JDBCConnection"
+      , "SQLiteConnection"
+      , "Microsoft SQL Server"
+    )
+  )
 
   if (class(conn) %in% c("PqConnection", "RPostgres")) {
 
@@ -23,7 +31,7 @@ show_tables <- function(conn, show_tables_matching = "", database = ""){
 
   }
 
-  if (class(conn) %in% "RODBC") {
+  if (class(conn) %in% c("RODBC", "Microsoft SQL Server")) {
 
     show_tables_matching <- sprintf("%s%s%s", "%", show_tables_matching, "%")
 
