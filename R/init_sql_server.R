@@ -16,18 +16,11 @@ init_sql_server <- function(server,
                             username = NULL,
                             password = NULL){
 
-  # PROMPT FOR CREDIENTIALS IF NEEDED
-
   if (is.null(username))
     username <- readline(prompt = "Enter SQL Server username: ")
 
   if (is.null(password))
     password <- readline(prompt = "Enter SQL Server password: ")
-
-  # conn <- RODBC::odbcDriverConnect(sprintf("driver=SQL Server;server=%s;database=%s;Uid=%s;Pwd=%s;",
-  #                                          server, database, username, password))
-  #
-  # conn
 
   conn <- DBI::dbConnect(odbc::odbc(),
                         .connection_string=

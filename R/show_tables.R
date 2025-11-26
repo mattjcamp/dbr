@@ -13,8 +13,6 @@ show_tables <- function(conn, show_tables_matching = "", database = ""){
   stopifnot(class(conn) %in% c(
       "PqConnection"
       , "RPostgres"
-      , "RODBC"
-      , "JDBCConnection"
       , "SQLiteConnection"
       , "Microsoft SQL Server"
     )
@@ -22,63 +20,35 @@ show_tables <- function(conn, show_tables_matching = "", database = ""){
 
   if (class(conn) %in% c("PqConnection", "RPostgres")) {
 
-    sql <- "SELECT table_schema, table_name
+    if(show_tables_matching != ""){
+      where <- paste0(" AND table_name LIKE '%", show_tables_matching, "%'")
+    }else{
+      where <- ""
+    }
+
+    sql <- paste0("SELECT table_schema, table_name
     FROM information_schema.tables
     WHERE table_schema NOT IN (
       'table_schema'
       , 'information_schema'
-      , 'pg_catalog');"
+      , 'pg_catalog')", where, ";")
 
   }
 
-  if (class(conn) %in% c("RODBC", "Microsoft SQL Server")) {
+  if (class(conn) %in% c("Microsoft SQL Server")) {
 
-    show_tables_matching <- sprintf("%s%s%s", "%", show_tables_matching, "%")
-
-    sql <- sprintf("
-
-                   SELECT TABLE_NAME
-                   FROM %s.information_schema.tables
-                   WHERE TABLE_NAME LIKE '%s'
-                   ORDER BY TABLE_NAME
-
-                   ", database, show_tables_matching)
-
-  }
-
-  if (class(conn) %in% "JDBCConnection") {
-
-    if (database != "") {
-      filter_database = sprintf("table_schema = '%s'", database)
-    } else {
-      filter_database = NULL
+    if(show_tables_matching != ""){
+      where <- paste0("WHERE TABLE_NAME LIKE '%", show_tables_matching, "%'")
+    }else{
+      where <- ""
     }
 
-    if (show_tables_matching != "") {
-      show_tables_matching <- sprintf("%s%s%s", "%", show_tables_matching, "%")
-      filter_matching = sprintf("table_name LIKE '%s'", show_tables_matching)
-    } else {
-      filter_matching = NULL
-    }
-
-    filters = c(filter_database, filter_matching)
-
-    if (!(length(filters) == 0)) {
-      if (!filters[1] == "") {
-        filters.logical <- sprintf(" %s ", " AND ")
-        filters <- paste(filters, collapse = filters.logical)
-        filters <- sprintf("WHERE %s", filters)
-      }else
-        filters <- ""
-    }else
-      filters <- ""
-
     sql <- sprintf("
-      select distinct table_name as table
-      from information_schema.tables
-      %s
-      order by table_name
-      ", filters)
+    SELECT DISTINCT
+        TABLE_NAME table_name
+    FROM %s.INFORMATION_SCHEMA.TABLES
+    %s
+    ORDER BY TABLE_NAME;", database, where)
 
   }
 
@@ -91,7 +61,7 @@ show_tables <- function(conn, show_tables_matching = "", database = ""){
 
     sql <- sprintf("
 
-                   SELECT name
+                   SELECT name table_name
                    FROM sqlite_master
                    WHERE %s type = 'table'
                    ORDER BY name
@@ -100,6 +70,6 @@ show_tables <- function(conn, show_tables_matching = "", database = ""){
 
   }
 
-  pull_data(sql, conn)
+  pull_data(sql, conn) %>% select(table_name)
 
 }
